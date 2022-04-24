@@ -3,7 +3,7 @@
 <p align="center">
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/0sir1ss/Anubis?color=56BEB8">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/0sir1ss/Anubis?color=56BEB8">
+  <img alt="Github stars" src="https://img.shields.io/github/stars/0sir1ss/Anubis?color=56BEB8" />
 
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/0sir1ss/Anubis?color=56BEB8">
 
@@ -11,9 +11,10 @@
 
   <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/0sir1ss/Anubis?color=56BEB8" /> -->
 
+  <!-- <img alt="Github language count" src="https://img.shields.io/github/languages/count/0sir1ss/Anubis?color=56BEB8"> -->
+  
   <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/0sir1ss/Anubis?color=56BEB8" /> -->
 
-  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/0sir1ss/Anubis?color=56BEB8" /> -->
 </p>
 
 
@@ -79,7 +80,7 @@ If you do not compile to an exe and instead choose to distribute with the custom
 
 ## :memo: License ##
 
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
+This project is under license from MIT. For more details, see the [LICENSE](LICENSE) file.
 
 
 Made with :heart: by <a href="https://github.com/0sir1ss" target="_blank">0sir1s</a>

@@ -4,8 +4,6 @@
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/0sir1ss/Anubis">
 
   <img alt="Github stars" src="https://img.shields.io/github/stars/0sir1ss/Anubis" />
-  
-  <img alt="Github Downloads" src="https://img.shields.io//github/downloads/0sir1ss/Anubis/total">
 
   <img alt="License" src="https://img.shields.io/github/license/0sir1ss/Anubis">
 

@@ -1,3 +1,10 @@
+<div align="center" id="top"> 
+  <img src="./img.png" alt="Anubis" />
+
+  &#xa0;
+
+</div>
+
 <h1 align="center">Anubis</h1>
 
 <p align="center">
@@ -32,7 +39,7 @@
 
 ## :dart: About ##
 
-I was looking around online and github when I realised that there were little Python obfuscators. First there's [pyarmor](https://pypi.org/project/pyarmor/) but that is able to be deobfuscated. Then there's many tools like [pyminifier](https://pypi.org/project/pyminifier/) but they all do the same thing and don't provide any real protection against your code. The best solution I could find is this obfuscator [here](https://pyob.oxyry.com/) but purchasing it is USD $1998.
+I was looking around online and github when I realised that there were little Python obfuscators. First there's [pyarmor](https://pypi.org/project/pyarmor/) but that can be deobfuscated. Then there's many tools like [pyminifier](https://pypi.org/project/pyminifier/) but they all do the same thing and don't provide any real protection against your code. The best solution I could find is this obfuscator [here](https://pyob.oxyry.com/) but purchasing it is USD $1998.
 
 So I decided to create my own obfuscator, which provides a plethora of features such as junk code and custom encryption, and includes the obfuscation found at oxyry.
 

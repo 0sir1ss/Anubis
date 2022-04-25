@@ -43,7 +43,7 @@ I was looking around online and github when I realised that there were little Py
 
 So I decided to create my own obfuscator, which provides a plethora of features such as junk code and custom encryption, and includes the obfuscation found at oxyry.
 
-You can see the difference it makes from this source [here](https://github.com/0sir1ss/Anubis/blob/main/example/script.py) to this obfuscated source [here](https://github.com/0sir1ss/Anubis/blob/main/example/script-obf.py)
+You can see the difference it makes from this source [here](https://github.com/0sir1ss/Anubis/blob/main/example/script.py) to this obfuscated one liner [here](https://github.com/0sir1ss/Anubis/blob/main/example/script-obf.py)
 
 ## :sparkles: Features ##
 

@@ -83,7 +83,7 @@ $ python anubis.py
 
 ```
 
-If you do not compile to an exe and instead choose to distribute with the custom encryption you will need the [ancrypt file](https://github.com/0sir1ss/Anubis/blob/main/ancrypt.py)
+If you do not compile to an exe and instead choose to distribute with the custom encryption you will need the [ancrypt file](https://github.com/0sir1ss/Anubis/blob/main/ancrypt.py)\
 You can build this with the following command:
 > python setup.py build_ext --inplace
 

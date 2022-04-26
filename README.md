@@ -39,7 +39,7 @@
 
 ## :dart: About ##
 
-I was looking around online and github when I realised that there were little Python obfuscators. First there's [pyarmor](https://pypi.org/project/pyarmor/) but that can be deobfuscated. Then there's many tools like [pyminifier](https://pypi.org/project/pyminifier/) but they all do the same thing and don't provide any real protection against your code. The best solution I could find is this obfuscator [here](https://pyob.oxyry.com/) but purchasing it is USD $1998.
+I was looking around online and github when I realised that there were little Python obfuscators. First there's [pyarmor](https://pypi.org/project/pyarmor/) but that can be deobfuscated, however it still is quite good. Then there's many tools like [pyminifier](https://pypi.org/project/pyminifier/) but they all do the same thing and don't provide any real protection against your code. Another good solution I found was this obfuscator [here](https://pyob.oxyry.com/) but purchasing it costs USD $1998.
 
 So I decided to create my own obfuscator, which provides a plethora of features such as junk code and custom encryption, and includes the obfuscation found at oxyry.
 
@@ -47,10 +47,10 @@ You can see the difference it makes from this source [here](https://github.com/0
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: Anti VM\
-:heavy_check_mark: Anti Debugger\
-:heavy_check_mark: Junk Code\
-:heavy_check_mark: Custom Encryption\
+:heavy_check_mark: Anti VM - Stop execution of this program on a Virtual Machine\
+:heavy_check_mark: Anti Debugger - Stop the use of debuggers whilst this program is running\
+:heavy_check_mark: Junk Code - Add junk code to the program\
+:heavy_check_mark: Custom Encryption - A one liner which uses custom encryption\
 :heavy_check_mark: Compile to exe with Nuitka
 
 ## :rocket: Technologies ##
@@ -83,7 +83,9 @@ $ python anubis.py
 
 ```
 
-If you do not compile to an exe and instead choose to distribute with the custom encryption you will need the [ancrypt file](https://github.com/0sir1ss/Anubis/blob/main/ancrypt.cp38-win_amd64.pyd)
+If you do not compile to an exe and instead choose to distribute with the custom encryption you will need the [ancrypt file](https://github.com/0sir1ss/Anubis/blob/main/ancrypt.py)
+You can build this with the following command:
+> python setup.py build_ext --inplace
 
 ## :memo: License ##
 

@@ -109,7 +109,7 @@ def oxyry(code):
     except:
         error("A problem occurred whilst obfuscating")
 
-def bug(code):
+def bugs(code):
     dbg = """import binascii
 try:
     from psutil import process_iter
@@ -135,7 +135,7 @@ def imports(code):
     imports = "import threading, time\n"
     return imports + code
 
-def detect(code):
+def detects(code):
     vmdct = """import sys
 try:
     from py_vmdetect import VMDetect
@@ -162,7 +162,7 @@ def anubis(code):
         newcode += f"class {i}:\n    def __init__(self):\n"
         funcs = ["__"+"".join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20))) for i in range(random.randint(5, 15))]
         for i in funcs:
-            newcode += f"        self.__{i}()\n"
+            newcode += f"        self.{i}()\n"
         for i in funcs:
             newcode += f"    def {i}(self, {', '.join([''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(5, 20))) for i in range(random.randint(1, 7))])}):\n        return self.{random.choice(funcs)}()\n"
     newcode += code + "\n"
@@ -171,7 +171,7 @@ def anubis(code):
         newcode += f"class {i}:\n    def __init__(self):\n"
         funcs = ["__"+"".join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20))) for i in range(random.randint(5, 15))]
         for i in funcs:
-            newcode += f"        self.__{i}()\n"
+            newcode += f"        self.{i}()\n"
         for i in funcs:
             newcode += f"    def {i}(self, {', '.join([''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(5, 20))) for i in range(random.randint(1, 7))])}):\n        return self.{random.choice(funcs)}()\n"
     return newcode
@@ -288,18 +288,18 @@ with open(file, "r", encoding='utf-8') as f:
     src = f'__all__ = []\n' + f.read()
 
 if detect:
-    src = detect(src)
+    src = detects(src)
 if junk:
     src = anubis(src)
 if bug:
-    src = bug(src)
+    src = bugs(src)
 if junk:
     src = anubis(src)
 if detect or bug:
     src = imports(src)
 if junk:
     src = anubis(src)
-src = oxyry(src)
+#src = oxyry(src)
 src = src.replace(f'__all__=[]', "").replace(f'__all__ =[]', "").replace(f'__all__ = []', "").replace(f'__all__= []', "")
 if extra:
     src = Encryption(key.encode()).write(key, src)

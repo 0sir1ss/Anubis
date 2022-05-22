@@ -110,7 +110,7 @@ def oxyry(code):
         error("A problem occurred whilst obfuscating")
 
 def bugs(code):
-    dbg = """import binascii
+    dbg = """import binascii, threading, time
 try:
     from psutil import process_iter
 except:
@@ -130,30 +130,6 @@ def debugger():
 threading.Thread(target=debugger, daemon=True).start()\n\n"""
     code = dbg + code
     return code
-
-def imports(code):
-    imports = "import threading, time\n"
-    return imports + code
-
-def detects(code):
-    vmdct = """import sys
-try:
-    from py_vmdetect import VMDetect
-except:
-    os.system("pip install py_vmdetect")
-def vmdct():
-    while True:
-        try:
-            if VMDetect.is_vm():
-                sys.exit()
-        except Exception:
-            pass
-        time.sleep(0.5)
-
-threading.Thread(target=vmdct, daemon=True).start()\n\n"""
-    code = vmdct + code
-    return code
-
 
 def anubis(code):
     newcode = "\n"
@@ -202,8 +178,11 @@ class Encryption:
         return s[:-ord(s[len(s)-1:])]
 
     def write(self, key, source):
-        enc = self.encrypt(source)
-        code = f'import ancrypt\nancrypt.main("{key}", "{enc}")'
+        wall = "__ANUBIS_ENCRYPTED__" * 25
+        newcode = f"{wall}{key}{wall}"
+        for line in source.split("\n"):
+            newcode += self.encrypt(line) + wall
+        code = f"import ancrypt\nancrypt.load(__file__)\n'''\n{newcode}\n'''"
         return code
 
 
@@ -235,19 +214,7 @@ while True:
     else:
         break
 
-detect = False
 bug = False
-
-while True:
-    ans = input(purple("        [>] AntiVM [y/n] : ") + "\033[38;2;148;0;230m").lower()
-    if ans == "y":
-        detect = True
-        break
-    elif ans == "n":
-        detect = False
-        break
-    else:
-        print(red("        [!] Error : Invalid option [y/n]"), end="")
 
 while True:
     ans = input(purple("        [>] AntiDebug [y/n] : ") + "\033[38;2;148;0;230m").lower()
@@ -283,20 +250,14 @@ while True:
         print(red(f"        [!] Error : Invalid option [y/n]"), end="")
 
 print(" ")
-key = os.urandom(32).hex()
+key = base64.b64encode(os.urandom(32)).decode()
 with open(file, "r", encoding='utf-8') as f:
     src = f'__all__ = []\n' + f.read()
 
-if detect:
-    src = detects(src)
 if junk:
     src = anubis(src)
 if bug:
     src = bugs(src)
-if junk:
-    src = anubis(src)
-if detect or bug:
-    src = imports(src)
 if junk:
     src = anubis(src)
 src = oxyry(src)

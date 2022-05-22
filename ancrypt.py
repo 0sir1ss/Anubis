@@ -17,9 +17,18 @@ class Anubis:
     def _unpad(s):
         return s[:-ord(s[len(s)-1:])]
 
-def main(key, code):
-    key = key.encode()
-    src = Anubis(key).decrypt(code)
+def load(file):
+    with open(file, "r") as f:
+        obfcode = f.read()
+    obfcode = obfcode.replace("import ancrypt\nancrypt.load(__file__)\n'''", "").replace("\n'''", "")
+    listed = obfcode.split("__ANUBIS_ENCRYPTED__" * 25)
+    del listed[0]; del listed[-1]
+    key = listed[0].encode()
+    del listed[0]
+    anubis = Anubis(key)
+    src = ""
+    for i in listed:
+        src += anubis.decrypt(i) + "\n"
     tmp = tempfile.NamedTemporaryFile(suffix=".py", delete=False)
     tmp.write(src.encode())
     p = subprocess.Popen([sys.executable, tmp.name])

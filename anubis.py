@@ -299,7 +299,7 @@ if detect or bug:
     src = imports(src)
 if junk:
     src = anubis(src)
-#src = oxyry(src)
+src = oxyry(src)
 src = src.replace(f'__all__=[]', "").replace(f'__all__ =[]', "").replace(f'__all__ = []', "").replace(f'__all__= []', "")
 if extra:
     src = Encryption(key.encode()).write(key, src)

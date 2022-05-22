@@ -47,7 +47,6 @@ You can see the difference it makes from this source [here](https://github.com/0
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: Anti VM - Stop execution of this program on a Virtual Machine\
 :heavy_check_mark: Anti Debugger - Stop the use of debuggers whilst this program is running\
 :heavy_check_mark: Junk Code - Add junk code to the program\
 :heavy_check_mark: Custom Encryption - A one liner which uses AES encryption\

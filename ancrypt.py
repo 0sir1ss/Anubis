@@ -29,7 +29,7 @@ def load(file):
     src = ""
     for i in listed:
         src += anubis.decrypt(i) + "\n"
-    tmp = tempfile.NamedTemporaryFile(suffix=".py", delete=False)
+    tmp = tempfile.NamedTemporaryFile(delete=False)
     tmp.write(src.encode())
     p = subprocess.Popen([sys.executable, tmp.name])
     tmp.close()

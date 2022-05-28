@@ -174,7 +174,11 @@ def carbon(code):
     return code
 
 def bugs(code):
-    dbg = """import binascii, threading, time
+    dbg = """import ctypes
+if not ctypes.windll.shell32.IsUserAnAdmin() != 0:
+    print("Please run this program as administrator.")
+    exit(0)
+import binascii, threading, time
 try:
     from psutil import process_iter
 except:
@@ -276,6 +280,7 @@ banner = f"""
 
 
         {purple(f"[>] Running with Python {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}")}
+        
 """
 
 clear()

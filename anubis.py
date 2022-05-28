@@ -1,5 +1,5 @@
 # Made by 0sir1ss @ https://github.com/0sir1ss/Anubis
-import requests, os, sys, platform, re, random, string, base64, hashlib, subprocess
+import ast, io, tokenize, os, sys, platform, re, random, string, base64, hashlib, subprocess
 from Crypto import Random
 from Crypto.Cipher import AES
 
@@ -86,28 +86,92 @@ def purple(text):
             faded += (f"\033[38;2;{red};0;220m{character}\033[0m")
     return faded
 
-def oxyry(code):
-    try:
-        src = code.replace('"', '\"').replace("'", "\'").replace("\\", "\\\\")
-        url = "https://pyob.oxyry.com/obfuscate"
-        payload = {
-            "append_source": False,
-            "remove_docstrings": True,
-            "rename_nondefault_parameters": True,
-            "rename_default_parameters": True,
-            "preserve": "",
-            "source": src
-        }
-        r = requests.post(url, headers={}, json=payload)
-        data = r.json()
-        try:
-            code = data['dest'].replace("\\\\", "\\")
-            code = re.sub("#\w*:[0-9]*", "", code)
-            return code
-        except:
-            error(f"{data['errorMessage']}\n        [!] Please make sure your code is Python 3.3 - 3.7 compatible")
-    except:
-        error("A problem occurred whilst obfuscating")
+def remove_docs(source):
+    io_obj = io.StringIO(source)
+    out = ""
+    prev_toktype = tokenize.INDENT
+    last_lineno = -1
+    last_col = 0
+    for tok in tokenize.generate_tokens(io_obj.readline):
+        token_type = tok[0]
+        token_string = tok[1]
+        start_line, start_col = tok[2]
+        end_line, end_col = tok[3]
+        if start_line > last_lineno:
+            last_col = 0
+        if start_col > last_col:
+            out += (" " * (start_col - last_col))
+        if token_type == tokenize.COMMENT:
+            pass
+        elif token_type == tokenize.STRING:
+            if prev_toktype != tokenize.INDENT:
+                if prev_toktype != tokenize.NEWLINE:
+                    if start_col > 0:
+                        out += token_string
+        else:
+            out += token_string
+        prev_toktype = token_type
+        last_col = end_col
+        last_lineno = end_line
+    out = '\n'.join(l for l in out.splitlines() if l.strip())
+    return out
+
+def carbon(code):
+    code = remove_docs(code)
+    parsed = ast.parse(code)
+
+    funcs = {
+        node for node in ast.walk(parsed) if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+    }
+    classes = {
+        node for node in ast.walk(parsed) if isinstance(node, ast.ClassDef)
+    }
+    args = {
+        node.id for node in ast.walk(parsed) if isinstance(node, ast.Name) and not isinstance(node.ctx, ast.Load)
+    }
+    attrs = {
+        node.attr for node in ast.walk(parsed) if isinstance(node, ast.Attribute) and not isinstance(node.ctx, ast.Load)
+    }
+    for func in funcs:
+        for arg in func.args.args:
+            args.add(arg.arg)
+
+    pairs = {}
+    used = set()
+    for func in funcs:
+        if func.name == "__init__":
+            continue
+        newname = "".join(random.choice(["I", "l"]) for i in range(random.randint(8, 20)))
+        while newname in used:
+            newname = "".join(random.choice(["I", "l"]) for i in range(random.randint(8, 20)))
+        used.add(newname)
+        pairs[func.name] = newname
+
+    for _class in classes:
+        newname = "".join(random.choice(["I", "l"]) for i in range(random.randint(8, 20)))
+        while newname in used:
+            newname = "".join(random.choice(["I", "l"]) for i in range(random.randint(8, 20)))
+        used.add(newname)
+        pairs[_class.name] = newname
+
+    for arg in args:
+        newname = "".join(random.choice(["I", "l"]) for i in range(random.randint(8, 20)))
+        while newname in used:
+            newname = "".join(random.choice(["I", "l"]) for i in range(random.randint(8, 20)))
+        used.add(newname)
+        pairs[arg] = newname
+
+    for attr in attrs:
+        newname = "".join(random.choice(["I", "l"]) for i in range(random.randint(8, 20)))
+        while newname in used:
+            newname = "".join(random.choice(["I", "l"]) for i in range(random.randint(8, 20)))
+        used.add(newname)
+        pairs[attr] = newname
+
+    for key in pairs:
+        code = re.sub(fr"\b({key})\b", pairs[key], code)
+
+    return code
 
 def bugs(code):
     dbg = """import binascii, threading, time
@@ -116,7 +180,26 @@ try:
 except:
     import os
     os.system("pip install psutil")
-d = ['53757370656e64', '50726f67726573732054656c6572696b20466964646c657220576562204465627567676572', '466964646c6572', '57697265736861726b', '64756d70636170', '646e537079', '646e5370792d783836', '6368656174656e67696e652d7838365f3634', '4854545044656275676765725549', '50726f636d6f6e', '50726f636d6f6e3634', '50726f636d6f6e363461', '50726f636573734861636b6572', '783332646267', '783634646267', '446f744e657444617461436f6c6c6563746f723332', '446f744e657444617461436f6c6c6563746f723634', '485454504465627567676572537663', '48545450204465627567676572', '696461', '6964613634', '69646167', '696461673634', '69646177', '696461773634', '69646171', '696461713634', '69646175', '696461753634', '7363796c6c61', '7363796c6c615f783634', '7363796c6c615f783836', '70726f74656374696f6e5f6964', '77696e646267', '7265736861636b6572', '496d706f7274524543', '494d4d554e4954594445425547474552', '4d65676144756d706572', '646973617373656d626c79', '4465627567', '5b435055496d6d756e697479', '4d65676144756d70657220312e3020627920436f6465437261636b6572202f20536e44', '436861726c6573', '636861726c6573', '4f4c4c59444247', '496d706f72745f7265636f6e7374727563746f72', '636f6465637261636b6572', '646534646f74', '696c737079', '67726179776f6c66', '73696d706c65617373656d626c796578706c6f726572', '7836346e657464756d706572', '687864', '7065746f6f6c73', '73696d706c65617373656d626c79', '68747470616e616c797a6572', '687474706465627567', '70726f636573736861636b6572', '6d656d6f727965646974', '6d656d6f7279', '646534646f746d6f64646564', '70726f63657373206861636b6572', '70726f63657373206d6f6e69746f72', '717435636f7265', '696461', '696d6d756e697479', '68747470', '74726166666963', '77697265736861726b', '666964646c6572', '7061636b6574', '6861636b6572', '6465627567', '646e737079', '646f747065656b', '646f747472616365', '70726f6364756d70', '6d616e61676572', '6d656d6f7279', '6e65744c696d6974', '6e65744c696d69746572', '73616e64626f78']; d = [binascii.unhexlify(i.encode()).decode() for i in d]
+d = [
+    '53757370656e64', '50726f67726573732054656c6572696b20466964646c657220576562204465627567676572', '466964646c6572', '57697265736861726b',
+    '64756d70636170', '646e537079', '646e5370792d783836', '6368656174656e67696e652d7838365f3634', '4854545044656275676765725549',
+    '50726f636d6f6e', '50726f636d6f6e3634', '50726f636d6f6e363461', '50726f636573734861636b6572',
+    '783332646267', '783634646267', '446f744e657444617461436f6c6c6563746f723332',
+    '446f744e657444617461436f6c6c6563746f723634', '485454504465627567676572537663', '48545450204465627567676572', '696461', '6964613634', '69646167', '696461673634',
+    '69646177', '696461773634', '69646171', '696461713634', '69646175', '696461753634',
+    '7363796c6c61', '7363796c6c615f783634', '7363796c6c615f783836', '70726f74656374696f6e5f6964',
+    '77696e646267', '7265736861636b6572', '496d706f7274524543', '494d4d554e4954594445425547474552',
+    '4d65676144756d706572', '646973617373656d626c79', '4465627567', '5b435055496d6d756e697479',
+    '4d65676144756d70657220312e3020627920436f6465437261636b6572202f20536e44', '436861726c6573', '636861726c6573', '4f4c4c59444247', '496d706f72745f7265636f6e7374727563746f72',
+    '636f6465637261636b6572', '646534646f74', '696c737079', '67726179776f6c66',
+    '73696d706c65617373656d626c796578706c6f726572', '7836346e657464756d706572', '687864',
+    '7065746f6f6c73', '73696d706c65617373656d626c79', '68747470616e616c797a6572', '687474706465627567', '70726f636573736861636b6572', '6d656d6f727965646974', '6d656d6f7279',
+    '646534646f746d6f64646564', '70726f63657373206861636b6572', '70726f63657373206d6f6e69746f72',
+    '717435636f7265', '696461', '696d6d756e697479', '68747470', '74726166666963',
+    '77697265736861726b', '666964646c6572', '7061636b6574', '6861636b6572', '6465627567', '646e737079', '646f747065656b', '646f747472616365', '70726f6364756d70', '6d616e61676572',
+    '6d656d6f7279', '6e65744c696d6974', '6e65744c696d69746572', '73616e64626f78'
+]
+d = [binascii.unhexlify(i.encode()).decode() for i in d]
 def debugger():
     while True:
         try:
@@ -164,18 +247,9 @@ class Encryption:
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         return base64.b64encode(iv + cipher.encrypt(raw.encode())).decode()
 
-    def decrypt(self, enc):
-        enc = base64.b64decode(str(enc))
-        iv = enc[:AES.block_size]
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
-
     def _pad(self, s):
         return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
 
-    @staticmethod
-    def _unpad(s):
-        return s[:-ord(s[len(s)-1:])]
 
     def write(self, key, source):
         wall = "__ANUBIS_ENCRYPTED__" * 25
@@ -202,7 +276,6 @@ banner = f"""
 
 
         {purple(f"[>] Running with Python {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}")}
-        {red("[!] Please make sure your code is Python 3.3 - 3.7 compatible")}
 """
 
 clear()
@@ -252,7 +325,7 @@ while True:
 print(" ")
 key = base64.b64encode(os.urandom(32)).decode()
 with open(file, "r", encoding='utf-8') as f:
-    src = f'__all__ = []\n' + f.read()
+    src = f.read()
 
 if junk:
     src = anubis(src)
@@ -260,8 +333,7 @@ if bug:
     src = bugs(src)
 if junk:
     src = anubis(src)
-src = oxyry(src)
-src = src.replace(f'__all__=[]', "").replace(f'__all__ =[]', "").replace(f'__all__ = []', "").replace(f'__all__= []', "")
+src = carbon(src)
 if extra:
     src = Encryption(key.encode()).write(key, src)
 

@@ -174,10 +174,10 @@ def carbon(code):
     return code
 
 def bugs(code):
-    dbg = """import ctypes
+    dbg = """import ctypes, sys
 if not ctypes.windll.shell32.IsUserAnAdmin() != 0:
     print("Please run this program as administrator.")
-    exit(0)
+    sys.exit(0)
 import binascii, threading, time
 try:
     from psutil import process_iter

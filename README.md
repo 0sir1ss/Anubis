@@ -54,30 +54,8 @@ You can see the difference it makes from this source [here](https://github.com/0
 :heavy_check_mark: Compile to exe with Nuitka
 
 ## :no_entry_sign: Known Bugs ##
-Functions, Classes, Variables and Parameters are replaced across the file.
-This can cause problems as such:
-```py
-num = 1
-for i in range(5):
-  print(f"num: {num}")
-  num += 1
-```
-Becoming:
-```py
-IlIlllllIlI = 1
-for lIllllIIlIIIIIIlll in range(5):
-    print(f"IlIlllllIlI: {IlIlllllIlI}")
-    IlIlllllIlI += 1
-```
-The only way to avoid this is to avoid publicly using classes, functions, parameters and variables.
-```py
-lllIlIIlIIllIllIll = 1
-for lIlIIllIlIlIIIIl in range(5):
-    print(f"num: {lllIlIIlIIllIllIll}")
-    lllIlIIlIIllIllIll += 1
-```
-
-A fix is being looked into currently.
+Sometimes the Carbon renamer won't replace all instances of the name.\
+If you wish for something more reliable, use the oxyry obfuscator.
 
 ## :rocket: Technologies ##
 

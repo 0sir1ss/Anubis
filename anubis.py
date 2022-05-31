@@ -133,8 +133,16 @@ def carbon(code):
         node.attr for node in ast.walk(parsed) if isinstance(node, ast.Attribute) and not isinstance(node.ctx, ast.Load)
     }
     for func in funcs:
-        for arg in func.args.args:
-            args.add(arg.arg)
+        if func.args.args:
+            for arg in func.args.args:
+                args.add(arg.arg)
+        if func.args.kwonlyargs:
+            for arg in func.args.kwonlyargs:
+                args.add(arg.arg)
+        if func.args.vararg:
+            args.add(func.args.vararg.arg)
+        if func.args.kwarg:
+            args.add(func.args.kwarg.arg)
 
     pairs = {}
     used = set()

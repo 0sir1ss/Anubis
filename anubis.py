@@ -1,5 +1,5 @@
 # Made by 0sir1ss @ https://github.com/0sir1ss/Anubis
-import ast, io, tokenize, os, sys, platform, re, random, string, base64, hashlib, subprocess
+import ast, io, tokenize, os, sys, platform, re, random, string, base64, hashlib, subprocess, requests
 from Crypto import Random
 from Crypto.Cipher import AES
 
@@ -244,6 +244,30 @@ def carbon(code):
 
     return code
 
+def oxyry(code):
+    try:
+        src = '__all__ = []\n' + code.replace('"', '\"').replace("'", "\'").replace("\\", "\\\\")
+        url = "https://pyob.oxyry.com/obfuscate"
+        payload = {
+            "append_source": False,
+            "remove_docstrings": True,
+            "rename_nondefault_parameters": True,
+            "rename_default_parameters": True,
+            "preserve": "",
+            "source": src
+        }
+        r = requests.post(url, headers={}, json=payload)
+        data = r.json()
+        try:
+            code = data['dest'].replace("\\\\", "\\")
+            code = re.sub("#\w*:[0-9]*", "", code)
+            code = code.replace(f'__all__=[]\n', "").replace(f'__all__ =[]\n', "").replace(f'__all__ = []\n', "").replace(f'__all__= []\n', "")
+            return code
+        except:
+            error(f"{data['errorMessage']}\n        [!] Please make sure your code is Python 3.3 - 3.7 compatible")
+    except:
+        error("A problem occurred whilst obfuscating")
+
 def bugs(code):
     dbg = """import ctypes, sys
 if not ctypes.windll.shell32.IsUserAnAdmin() != 0:
@@ -386,15 +410,28 @@ while True:
         print(red(f"        [!] Error : Invalid option [y/n]"), end="")
 
 while True:
-    ans = input(purple("        [>] Carbon Renamer [y/n] : ") + "\033[38;2;148;0;230m").lower()
+    ans = input(purple("        [>] Rename Classes, Functions, Variables & Parameters [y/n] : ") + "\033[38;2;148;0;230m").lower()
     if ans == "y":
-        carbonate = True
+        rename = True
         break
     elif ans == "n":
-        carbonate = False
+        rename = False
         break
     else:
         print(red(f"        [!] Error : Invalid option [y/n]"), end="")
+
+if rename:
+    while True:
+        ans = input(purple("        [>] Carbon (Offline) or Oxyry [c/o] : ") + "\033[38;2;148;0;230m").lower()
+        if ans == "c":
+            carbonate = True
+            break
+        elif ans == "o":
+            oxy = True
+            break
+        else:
+            print(red(f"        [!] Error : Invalid option [c/o]"), end="")
+
 
 while True:
     ans = input(purple("        [>] One Line Obfuscation (Can't compile to exe) [y/n] : ") + "\033[38;2;148;0;230m").lower()
@@ -420,6 +457,8 @@ if junk:
     src = anubis(src)
 if carbonate:
     src = carbon(src)
+if oxy:
+    src = oxyry(src)
 if extra:
     src = Encryption(key.encode()).write(key, src)
 

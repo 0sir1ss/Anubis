@@ -53,10 +53,6 @@ You can see the difference it makes from this source [here](https://github.com/0
 :heavy_check_mark: Custom Encryption - A one liner which uses custom encryption\
 :heavy_check_mark: Compile to exe with Nuitka
 
-## :no_entry_sign: Known Bugs ##
-Sometimes the Carbon renamer won't replace all instances of the name.\
-If you wish for something more reliable, use the oxyry obfuscator.
-
 ## :rocket: Technologies ##
 
 The following tools were used in this project:

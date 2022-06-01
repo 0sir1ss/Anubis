@@ -1,5 +1,6 @@
 # Made by 0sir1ss @ https://github.com/0sir1ss/Anubis
 import ast, io, tokenize, os, sys, platform, re, random, string, base64, hashlib, subprocess, requests
+from regex import F
 from Crypto import Random
 from Crypto.Cipher import AES
 
@@ -240,7 +241,7 @@ def carbon(code):
     replace_placeholder = r"('|\")" + placeholder + r"('|\")"
     for original in originals:
         code = re.sub(replace_placeholder, original, code, 1, re.MULTILINE)
-    print("\r"+f"        {cycles[len(cycles) -1]}", end="")
+    print("\r"+f"        {cycles[len(cycles) -1]}\n\n", end="")
 
     return code
 
@@ -387,6 +388,11 @@ while True:
     else:
         break
 
+carbonate = False
+oxy = False
+junk = False
+bug = False
+
 while True:
     ans = input(purple("        [>] AntiDebug [y/n] : ") + "\033[38;2;148;0;230m").lower()
     if ans == "y":
@@ -467,7 +473,7 @@ name = f"{file[:-3]}-obf.py"
 with open(name, "w", encoding='utf-8') as f:
     f.write(src)
 
-print(blue(f"\n\n        [>] Code has been successfully obfuscated @ {name}"), end="")
+print(blue(f"        [>] Code has been successfully obfuscated @ {name}"), end="")
 
 if extra == False:
     compile = False

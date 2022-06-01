@@ -386,6 +386,17 @@ while True:
         print(red(f"        [!] Error : Invalid option [y/n]"), end="")
 
 while True:
+    ans = input(purple("        [>] Carbon Renamer [y/n] : ") + "\033[38;2;148;0;230m").lower()
+    if ans == "y":
+        carbonate = True
+        break
+    elif ans == "n":
+        carbonate = False
+        break
+    else:
+        print(red(f"        [!] Error : Invalid option [y/n]"), end="")
+
+while True:
     ans = input(purple("        [>] One Line Obfuscation (Can't compile to exe) [y/n] : ") + "\033[38;2;148;0;230m").lower()
     if ans == "y":
         extra = True
@@ -407,7 +418,8 @@ if bug:
     src = bugs(src)
 if junk:
     src = anubis(src)
-src = carbon(src)
+if carbonate:
+    src = carbon(src)
 if extra:
     src = Encryption(key.encode()).write(key, src)
 

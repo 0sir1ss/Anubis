@@ -70,16 +70,16 @@ If you wish to compile your project to an exe you will need [Nuitka](https://pyp
 
 ```bash
 # Clone this project
-$ git clone https://github.com/0sir1ss/Anubis
+git clone https://github.com/0sir1ss/Anubis
 
 # Access
-$ cd Anubis
+cd Anubis
 
 # Install dependencies
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 
 # Run the project
-$ python anubis.py
+python anubis.py
 ```
 
 If you do not compile to an exe and instead choose to distribute with the custom encryption you will need the [ancrypt file](https://github.com/0sir1ss/Anubis/blob/main/ancrypt.py)\

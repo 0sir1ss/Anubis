@@ -39,7 +39,7 @@
 
 ## :dart: About ##
 
-I was looking around online and github when I realised that there were little Python obfuscators. First there's [pyarmor](https://pypi.org/project/pyarmor/) but that can be deobfuscated, however it still is quite good. Then there's many tools like [pyminifier](https://pypi.org/project/pyminifier/) but they all do the same thing and don't provide any real protection against your code. Another good solution I found was this obfuscator [here](https://pyob.oxyry.com/) but purchasing it costs **USD $1998**. Luckily I made my own version named [Carbon](https://github.com/0sir1ss/Carbon) which you can use for free.
+I was looking around online and github when I realised that there were little Python obfuscators. First there's [pyarmor](https://pypi.org/project/pyarmor/) but that can be deobfuscated, however it still is quite good. Then there's many tools like [pyminifier](https://pypi.org/project/pyminifier/) but they all do the same thing and don't provide any real protection against your code. Another good solution I found was this obfuscator [here](https://pyob.oxyry.com/) but purchasing it costs **USD $198**. Luckily I made my own version named [Carbon](https://github.com/0sir1ss/Carbon) which you can use for free.
 
 Anyways, I decided to create my own obfuscator, which provides a plethora of features such as junk code and custom encryption, and includes the obfuscation found in Carbon.
 

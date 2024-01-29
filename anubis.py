@@ -1,13 +1,17 @@
 # Made by 0sir1ss @ https://github.com/0sir1ss/Anubis
 import ast, io, tokenize, os, sys, platform, re, random, string, base64, hashlib, subprocess, requests
+from tkinter import filedialog
+
 from regex import F
 from Crypto import Random
 from Crypto.Cipher import AES
+from setuptools import glob
 
 is_windows = True if platform.system() == "Windows" else False
 
 if is_windows:
     os.system("title Anubis @ github.com/0sir1ss/Anubis")
+
 
 def clear():
     if is_windows:
@@ -15,11 +19,13 @@ def clear():
     else:
         os.system("clear")
 
+
 def pause():
     if is_windows:
         os.system(f"pause >nul")
     else:
         input()
+
 
 def leave():
     try:
@@ -27,12 +33,17 @@ def leave():
     except:
         exit()
 
+
 def error(error):
     print(red(f"        [!] Error : {error}"), end="")
-    pause(); clear(); leave()
+    pause();
+    clear();
+    leave()
+
 
 def red(text):
-    os.system(""); faded = ""
+    os.system("");
+    faded = ""
     for line in text.splitlines():
         green = 250
         for character in line:
@@ -43,8 +54,10 @@ def red(text):
         faded += "\n"
     return faded
 
+
 def blue(text):
-    os.system(""); faded = ""
+    os.system("");
+    faded = ""
     for line in text.splitlines():
         green = 0
         for character in line:
@@ -55,8 +68,10 @@ def blue(text):
         faded += "\n"
     return faded
 
+
 def water(text):
-    os.system(""); faded = ""
+    os.system("");
+    faded = ""
     green = 10
     for line in text.splitlines():
         faded += (f"\033[38;2;0;{green};255m{line}\033[0m\n")
@@ -65,6 +80,7 @@ def water(text):
             if green > 255:
                 green = 255
     return faded
+
 
 def purple(text):
     os.system("")
@@ -86,6 +102,7 @@ def purple(text):
                 down = False
             faded += (f"\033[38;2;{red};0;220m{character}\033[0m")
     return faded
+
 
 def remove_docs(source):
     io_obj = io.StringIO(source)
@@ -117,10 +134,12 @@ def remove_docs(source):
     out = '\n'.join(l for l in out.splitlines() if l.strip())
     return out
 
+
 def do_rename(pairs, code):
     for key in pairs:
         code = re.sub(fr"\b({key})\b", pairs[key], code, re.MULTILINE)
     return code
+
 
 def carbon(code):
     code = remove_docs(code)
@@ -198,35 +217,35 @@ def carbon(code):
             originals[i] = re.sub(r"({.*)(" + key + r")(.*})", "\\1" + pairs[key] + "\\3", originals[i], re.MULTILINE)
 
     cycles = [
-        "[   > >                                                                                           ]", 
-        "[   > > > >                                                                                       ]", 
-        "[   > > > > > >                                                                                   ]", 
-        "[   > > > > > > > >                                                                               ]", 
-        "[   > > > > > > > > > >                                                                           ]", 
-        "[   > > > > > > > > > > > >                                                                       ]", 
-        "[   > > > > > > > > > > > > > >                                                                   ]", 
-        "[   > > > > > > > > > > > > > > > >                                                               ]", 
-        "[   > > > > > > > > > > > > > > > > > >                                                           ]", 
-        "[   > > > > > > > > > > > > > > > > > > > >                                                       ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > >                                                   ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > >                                               ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > >                                           ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > >                                       ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                                   ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                               ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                           ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                       ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                   ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >               ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >           ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >       ]", 
-        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >   ]", 
+        "[   > >                                                                                           ]",
+        "[   > > > >                                                                                       ]",
+        "[   > > > > > >                                                                                   ]",
+        "[   > > > > > > > >                                                                               ]",
+        "[   > > > > > > > > > >                                                                           ]",
+        "[   > > > > > > > > > > > >                                                                       ]",
+        "[   > > > > > > > > > > > > > >                                                                   ]",
+        "[   > > > > > > > > > > > > > > > >                                                               ]",
+        "[   > > > > > > > > > > > > > > > > > >                                                           ]",
+        "[   > > > > > > > > > > > > > > > > > > > >                                                       ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > >                                                   ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > >                                               ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > >                                           ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > >                                       ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                                   ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                               ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                           ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                       ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >                   ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >               ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >           ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >       ]",
+        "[   > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >   ]",
     ]
 
     i = int(0)
 
     while True:
-        print("\r"+f"        {cycles[i]}", end="")
+        print("\r" + f"        {cycles[i]}", end="")
         i += 1
         if i == len(cycles):
             i = int(0)
@@ -241,9 +260,10 @@ def carbon(code):
     replace_placeholder = r"('|\")" + placeholder + r"('|\")"
     for original in originals:
         code = re.sub(replace_placeholder, original, code, 1, re.MULTILINE)
-    print("\r"+f"        {cycles[len(cycles) -1]}\n\n", end="")
+    print("\r" + f"        {cycles[len(cycles) - 1]}\n\n", end="")
 
     return code
+
 
 def oxyry(code):
     try:
@@ -262,12 +282,15 @@ def oxyry(code):
         try:
             code = data['dest'].replace("\\\\", "\\")
             code = re.sub("#\w*:[0-9]*", "", code)
-            code = code.replace(f'__all__=[]\n', "").replace(f'__all__ =[]\n', "").replace(f'__all__ = []\n', "").replace(f'__all__= []\n', "")
+            code = code.replace(f'__all__=[]\n', "").replace(f'__all__ =[]\n', "").replace(f'__all__ = []\n',
+                                                                                           "").replace(f'__all__= []\n',
+                                                                                                       "")
             return code
         except:
             error(f"{data['errorMessage']}\n        [!] Please make sure your code is Python 3.3 - 3.7 compatible")
     except:
         error("A problem occurred whilst obfuscating")
+
 
 def bugs(code):
     dbg = """import ctypes, sys
@@ -314,30 +337,40 @@ threading.Thread(target=debugger, daemon=True).start()\n\n"""
     code = dbg + code
     return code
 
+
 def anubis(code):
     newcode = "\n"
-    classes = ["".join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20))) for i in range(random.randint(2, 5))]
+    classes = [
+        "".join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20)))
+        for i in range(random.randint(2, 5))]
     for i in classes:
         newcode += f"class {i}:\n    def __init__(self):\n"
-        funcs = ["__"+"".join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20))) for i in range(random.randint(5, 15))]
+        funcs = ["__" + "".join(
+            random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20))) for i
+                 in range(random.randint(5, 15))]
         for i in funcs:
             newcode += f"        self.{i}()\n"
         for i in funcs:
             newcode += f"    def {i}(self, {', '.join([''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(5, 20))) for i in range(random.randint(1, 7))])}):\n        return self.{random.choice(funcs)}()\n"
     newcode += code + "\n"
-    classes = ["".join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20))) for i in range(random.randint(2, 5))]
+    classes = [
+        "".join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20)))
+        for i in range(random.randint(2, 5))]
     for i in classes:
         newcode += f"class {i}:\n    def __init__(self):\n"
-        funcs = ["__"+"".join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20))) for i in range(random.randint(5, 15))]
+        funcs = ["__" + "".join(
+            random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(8, 20))) for i
+                 in range(random.randint(5, 15))]
         for i in funcs:
             newcode += f"        self.{i}()\n"
         for i in funcs:
             newcode += f"    def {i}(self, {', '.join([''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for i in range(random.randint(5, 20))) for i in range(random.randint(1, 7))])}):\n        return self.{random.choice(funcs)}()\n"
     return newcode
 
+
 class Encryption:
 
-    def __init__(self, key): 
+    def __init__(self, key):
         self.bs = AES.block_size
         self.key = hashlib.sha256(key).digest()
 
@@ -349,7 +382,6 @@ class Encryption:
 
     def _pad(self, s):
         return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
-
 
     def write(self, key, source):
         wall = "__ANUBIS_ENCRYPTED__" * 25
@@ -376,17 +408,42 @@ banner = f"""
 
 
         {purple(f"[>] Running with Python {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}")}
-        
+
 """
 
 clear()
 print(water(banner), end="")
+
+selected_files = []
+
 while True:
-    file = input(purple("        [>] Enter the python file you wish to obfuscate [script.py] : ") + "\033[38;2;148;0;230m")
-    if not os.path.exists(file):
-        print(red("        [!] Error : That file does not exist"), end="")
+    print("[1] Enter the python file you wish to obfuscate.")
+    print("[2] Enter the folder you wish to obfuscate.")
+    selector = input("Your choice: ")
+
+    if selector == '1':
+        file = input("Enter the path of the Python file: ")
+        if not os.path.exists(file):
+            print("Error: That file does not exist")
+        else:
+            selected_files = [file]
+            break
+
+    elif selector == '2':
+        directory = input("Enter the path of the folder: ")
+        if not os.path.exists(directory):
+            print("Error: Invalid folder")
+        else:
+            py_files = glob.glob(os.path.join(directory, '**', '*.py'), recursive=True)
+            py_files = [file for file in py_files if not file.endswith('__init__.py')]
+            if not py_files:
+                print("There are no Python files in the selected folder")
+            else:
+                selected_files = py_files
+                break
     else:
-        break
+        print("Invalid selection. Please choose 1 or 2.")
+
 
 carbonate = False
 oxy = False
@@ -403,7 +460,7 @@ while True:
         break
     else:
         print(red(f"        [!] Error : Invalid option [y/n]"), end="")
-    
+
 while True:
     ans = input(purple("        [>] Junk Code [y/n] : ") + "\033[38;2;148;0;230m").lower()
     if ans == "y":
@@ -416,7 +473,8 @@ while True:
         print(red(f"        [!] Error : Invalid option [y/n]"), end="")
 
 while True:
-    ans = input(purple("        [>] Rename Classes, Functions, Variables & Parameters [y/n] : ") + "\033[38;2;148;0;230m").lower()
+    ans = input(purple(
+        "        [>] Rename Classes, Functions, Variables & Parameters [y/n] : ") + "\033[38;2;148;0;230m").lower()
     if ans == "y":
         rename = True
         break
@@ -438,9 +496,9 @@ if rename:
         else:
             print(red(f"        [!] Error : Invalid option [c/o]"), end="")
 
-
 while True:
-    ans = input(purple("        [>] One Line Obfuscation (Can't compile to exe) [y/n] : ") + "\033[38;2;148;0;230m").lower()
+    ans = input(
+        purple("        [>] One Line Obfuscation (Can't compile to exe) [y/n] : ") + "\033[38;2;148;0;230m").lower()
     if ans == "y":
         extra = True
         break
@@ -451,49 +509,53 @@ while True:
         print(red(f"        [!] Error : Invalid option [y/n]"), end="")
 
 print(" ")
+
 key = base64.b64encode(os.urandom(32)).decode()
-with open(file, "r", encoding='utf-8') as f:
-    src = f.read()
+for file in selected_files:
+    with open(file, "r", encoding='utf-8') as f:
+        src = f.read()
 
-if junk:
-    src = anubis(src)
-if bug:
-    src = bugs(src)
-if junk:
-    src = anubis(src)
-if carbonate:
-    src = carbon(src)
-if oxy:
-    src = oxyry(src)
-if extra:
-    src = Encryption(key.encode()).write(key, src)
+    if junk:
+        src = anubis(src)
+    if bug:
+        src = bugs(src)
+    if junk:
+        src = anubis(src)
+    if carbonate:
+        src = carbon(src)
+    if oxy:
+        src = oxyry(src)
+    if extra:
+        src = Encryption(key.encode()).write(key, src)
 
+    name = f"{file[:-3]}-obf.py"
+    with open(name, "w", encoding='utf-8') as f:
+        f.write(src)
 
-name = f"{file[:-3]}-obf.py"
-with open(name, "w", encoding='utf-8') as f:
-    f.write(src)
+    print(blue(f"        [>] Code has been successfully obfuscated @ {name}"), end="")
 
-print(blue(f"        [>] Code has been successfully obfuscated @ {name}"), end="")
+    if extra == False:
+        compile = False
+        while True:
+            ans = input(purple("        [>] Would you like to compile to an exe [y/n] : ") + "\033[38;2;148;0;230m").lower()
+            if ans == "y":
+                compile = True
+                break
+            elif ans == "n":
+                compile = False
+                break
+            else:
+                print(red(f"        [!] Error : Invalid option [y/n]"), end="")
 
-if extra == False:
-    compile = False
-    while True:
-        ans = input(purple("        [>] Would you like to compile to an exe [y/n] : ") + "\033[38;2;148;0;230m").lower()
-        if ans == "y":
-            compile = True
-            break
-        elif ans == "n":
-            compile = False
-            break
-        else:
-            print(red(f"        [!] Error : Invalid option [y/n]"), end="")
-
-    if compile == True:
-        basic_params = ["nuitka", "--mingw64", "--onefile", "--enable-plugin=numpy", "--include-module=psutil", "--remove-output", "--assume-yes-for-downloads", name]
-        p = subprocess.Popen(basic_params, stdout=subprocess.DEVNULL, shell=True, cwd=os.getcwd())
-        print(red("\n        [!] Exe may take a while to compile\n        [!] Nuitka Information:\n\n"), end="")
-        p.wait()
-        print(blue(f"\n        [>] Code has been successfully compiled @ {name[:-3] + '.exe'}"), end="")
+        if compile == True:
+            basic_params = ["nuitka", "--mingw64", "--onefile", "--enable-plugin=numpy", "--include-module=psutil",
+                            "--remove-output", "--assume-yes-for-downloads", name]
+            p = subprocess.Popen(basic_params, stdout=subprocess.DEVNULL, shell=True, cwd=os.getcwd())
+            print(red("\n        [!] Exe may take a while to compile\n        [!] Nuitka Information:\n\n"), end="")
+            p.wait()
+            print(blue(f"\n        [>] Code has been successfully compiled @ {name[:-3] + '.exe'}"), end="")
 
 print(blue("\n        [>] Press any key to exit... "), end="")
-pause(); clear(); leave()
+pause();
+clear();
+leave()

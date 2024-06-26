@@ -270,8 +270,9 @@ def oxyry(code):
         error("A problem occurred whilst obfuscating")
 
 def bugs(code):
-    dbg = """import ctypes, sys
-if not ctypes.windll.shell32.IsUserAnAdmin() != 0:
+    dbg = """import ctypes, sys, platform
+is_windows = True if platform.system() == "Windows" else False
+if is_windows and not ctypes.windll.shell32.IsUserAnAdmin() != 0:
     print("Please run this program as administrator.")
     sys.exit(0)
 import binascii, threading, time

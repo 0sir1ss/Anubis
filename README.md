@@ -1,3 +1,12 @@
+<h1 align="center">Updated version</h1>
+Hi, going back through this project and I have seen a user has updated this project and improved upon it. Please show them some love:
+https://github.com/GRodolphe/Anubis
+
+<br>
+<br>
+<br>
+<br>
+
 <div align="center" id="top"> 
   <img src="./img.png" alt="Anubis" />
 
